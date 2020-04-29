@@ -1,0 +1,202 @@
+#Part1
+1.CREATE DATABASE Umuzi
+
+2.CREATE TABLE Customers (
+    CustomerID int NOT NULL AUTO_INCREMENT,
+    FirstName varchar (50),
+    LastName varchar (50),
+    Gender varchar (6),
+    Address varchar (200),
+    Phone int (10),
+    Email varchar (100),
+    City varchar (20),
+    Country varchar (50),
+    FOREIGN KEY (Customerid) REFERENCES Payments(Customerid),
+    PRIMARY KEY (CustomerID)
+)
+
+CREATE TABLE Custome (
+    CustomerID int NOT NULL AUTO_INCREMENT,
+    FirstName varchar (50),
+    LastName varchar (50),
+    Gender varchar (6),
+    Address varchar (200),
+    Phone int (10),
+    Email varchar (100),
+    City varchar (20),
+    Country varchar (50),
+   
+    PRIMARY KEY (CustomerID)
+)
+
+CREATE TABLE Employees (
+    EmployeeID int NOT NULL AUTO_INCREMENT,
+    FirstName varchar(50),
+    LastName varchar(50),
+    Email varchar(100),
+    JobTitle varchar(20),
+    PRIMARY KEY (EmployeeID)
+    
+)
+
+CREATE TABLE Orders (
+    Orderid int NOT NULL AUTO_INCREMENT,
+    ProductID int,
+    PaymentID int,
+    DateRequired datetime,
+    DateShipped datetime,
+    Status varchar(20),
+    PRIMARY KEY (Orderid)
+    FOREIGN KEY (PaymentID) REFERENCES Payments(PaymentID)
+)
+
+CREATE TABLE Payments (
+    Customerid int,
+    PaymentID int NOT NULL AUTO_INCREMENT,
+    PaymentDate datetime,
+    Amount decimal,
+    PRIMARY KEY (PaymentID)
+    FOREIGN KEY (Customerid) REFERENCES Customers(Customerid)
+ 
+)
+
+CREATE TABLE Products (
+    Productid int NOT NULL AUTO_INCREMENT,
+    ProductName varchar(100),
+    Description varchar(300),
+    BuyPrice decimal,
+    PRIMARY KEY (Productid)
+    
+ 
+)
+#5
+	INSERT INTO Customers (
+    		FirstName,
+    		LastName,
+    		Gender,
+    		Address,
+    		Phone,
+    		Email,
+    		City,
+    		Country)  VALUES
+    		('John','Hibert','Female','284 chaucer st','084789657','john@gmail.com','Johannesburg','South Africa'),
+    		('Thando','Sithole','Female','240 Sect 1','0794445584','thando@gmail.com','Cape Town','South Africa'),
+    		('Leon','Glen','Female','81 Everton Rd,Gillits','0820832830','Leon@gmail.com','Durban','South Africa'),
+    		('Charl','Muller','Female','290A Dorset Ecke','856872553','Charl.muller@yahoo.com','Berlin','Germany'),
+    		('Julia','Stein','Female','2 Wernerring','672445058','Js234@yahoo.com','Frankfurt','Germany')
+
+
+	INSERT INTO Employees (
+    		FirstName,
+    		LastName,
+    		Email,
+    		JobTitle)  VALUES
+    		('Kani','Matthew','mat@gmail.com','Manager'),
+    		('Lesly','Cronje','LesC@gmail.com','Clerk'),
+    		('Gideon','Maduku','m@gmail.com','Accountant')
+
+
+	INSERT INTO Orders (
+    		ProductID,
+    		PaymentID,
+                FulfilledByEmployeeID,
+                DateRequired,
+                DateShipped,
+                Status) VALUES
+    		('1','1','2','2018-09-05','NULL','Not shipped'),
+    		('1','2','2','2018-09-04','2018-09-03','Shipped'),
+    		('3','3','3','2018-09-06','NULL','Not shipped')
+	INSERT INTO Payments (
+                PaymentDate,
+                Amount) VALUES
+    		('2018-09-01','150.75'),
+    		('2018-09-03','150.75'),
+    		('2018-09-03','700.60')
+
+	INSERT INTO Products (
+    		ProductName,
+                Description,
+                BuyPrice) VALUES
+    		('Harley Davidson Chopper','This replica features working kickstand, front suspension, gear-shift lever','150.75'),
+    		('Classic Car','Turnable front wheels, steering function','550.75'),
+    		('Sports Car','Turnable front wheels, steering function','700.60')
+    
+    
+
+#6
+The database contains 5 tables. The customers table contains the customer information.
+The employees table contains the employee information.
+The orders table contains the information about orders of the customers.
+The payments table contains information about the payments.
+The products table contains the product information.
+The paymentID on the orders tables links to the paymentID on the payments table.
+The customerID on the payments table links to the customerID on the customers table.
+
+
+
+
+#Part2
+1.SELECT .
+FROM Customers
+
+2.SELECT FirstName
+FROM Customers
+
+3.SELECT FirstName
+FROM Customers
+WHERE CustomerID = 1
+
+4.UPDATE Customers
+SET FirstName = "Lerato Mabitso"
+WHERE CustomerID = 1
+
+5.DELETE FROM Customers WHERE CustomerID = 2
+
+6.SELECT DISTINCT Status
+FROM Orders
+
+SELECT COUNT(DISTINCT Status) FROM Orders;
+
+7.SELECT MAX(Amount)
+FROM Payments
+
+
+8.SELECT *  
+FROM Customers 
+ORDER BY  Country
+
+9.SELECT ProductName
+FROM Products
+WHERE BuyPrice  >= 100 AND BuyPrice <= 600
+
+10.SELECT *
+FROM Customers 
+WHERE Country = "Germany" AND City = "Berlin"
+
+11.SELECT *
+FROM Customers 
+WHERE City = "Cape Town" OR City = "Durban"
+
+12.SELECT *
+FROM Products
+WHERE BuyPrice > 500
+
+13.SELECT SUM(Amount) AS TotalPrice 
+FROM Payments
+
+14.SELECT COUNT(*)
+FROM Orders
+WHERE Status = "Shipped"
+
+15.SELECT   FORMAT(AVG(BuyPrice),2) AS AveragePrice 
+FROM Products
+GROUP BY ProductName
+
+16.SELECT Payments.Customerid, Customers.CustomerID
+FROM Payments
+INNER JOIN Customers ON Customers.CustomerID = Payments.Customerid
+
+17.SELECT ProductName
+FROM Products
+WHERE Description LIKE '%Turnable front wheels%'
+ 
